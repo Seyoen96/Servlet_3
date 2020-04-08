@@ -46,7 +46,7 @@
 	
 	<div class="container">
 	  <h2>Point Add Form</h2>
-	  <form class="form-horizontal" action="/action_page.php">
+	  <form class="form-horizontal" action="../point/pointAdd" method="POST">
 	  
 	    <div class="form-group">
 	      <label class="control-label col-sm-2" for=name>Name:</label>

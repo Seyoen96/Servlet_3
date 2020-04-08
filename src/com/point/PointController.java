@@ -56,26 +56,21 @@ public class PointController extends HttpServlet {
 		} else if(command.equals("/pointAdd")) {
 			if(method.equals("POST")) {
 				//DB에 저장
-				path = "../WEB-INF/views/point/pointAdd.jsp";
+				PointDTO pointDTO = new PointDTO();
+				pointDTO.setName(request.getParameter("name"));
+				pointDTO.setNum(Integer.parseInt(request.getParameter("num")));
+				pointDTO.setKor(Integer.parseInt(request.getParameter("kor")));
+				pointDTO.setEng(Integer.parseInt(request.getParameter("eng")));
+				pointDTO.setMath(Integer.parseInt(request.getParameter("math")));
+				pointDTO.setTotal(Integer.parseInt(request.getParameter("total")));
+				pointDTO.setAvg(Double.parseDouble(request.getParameter("avg")));
+				
+				pointService.pointAdd(pointDTO);
+				check = false;
+				path = "../point/pointList";
 				
 			} else {
-				//redirect로 point/pointList로 이동
-//				check = false;
-//				path="../point/pointList";
 				path = "../WEB-INF/views/point/pointAdd.jsp";
-				
-//				PointDTO pointDTO = null;
-//				
-//				pointDTO.setName(request.getParameter("name"));
-//				pointDTO.setNum(Integer.parseInt(request.getParameter("num")));
-//				pointDTO.setKor(Integer.parseInt(request.getParameter("kor")));
-//				pointDTO.setEng(Integer.parseInt(request.getParameter("eng")));
-//				pointDTO.setMath(Integer.parseInt(request.getParameter("math")));
-//				pointDTO.setTotal(Integer.parseInt(request.getParameter("total")));
-//				pointDTO.setAvg(Double.parseDouble(request.getParameter("avg")));
-//				
-//				pointService.pointAdd(pointDTO);
-				
 			}
 		
 			
