@@ -33,6 +33,8 @@
 	  </div>
 	</nav>
   
+  
+  
 	<div class="container">
 	  <div class="jumbotron">
 	    <h1>Bootstrap Tutorial</h1>      
@@ -41,6 +43,71 @@
 	  <p>This is some text.</p>      
 	  <p>This is another text.</p>      
 	</div>
-	<h1>Point Add Form</h1>
+	
+	<div class="container">
+	  <h2>Point Add Form</h2>
+	  <form class="form-horizontal" action="/action_page.php">
+	  
+	    <div class="form-group">
+	      <label class="control-label col-sm-2" for=name>Name:</label>
+	      <div class="col-sm-10">
+	        <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+	      </div>
+	    </div>
+	    
+	    <div class="form-group">
+	      <label class="control-label col-sm-2" for="num">Num:</label>
+	      <div class="col-sm-10">          
+	        <input type="text" class="form-control" id="num" placeholder="Enter num" name="num">
+	      </div>
+	    </div>
+	    <div class="form-group">
+	      <label class="control-label col-sm-2" for=kor>Kor:</label>
+	      <div class="col-sm-10">
+	        <input type="text" class="form-control" id="kor" placeholder="Enter kor" name="kor">
+	      </div>
+	    </div>
+	    
+	    <div class="form-group">
+	      <label class="control-label col-sm-2" for="eng">Eng:</label>
+	      <div class="col-sm-10">          
+	        <input type="text" class="form-control" id="eng" placeholder="Enter eng" name="eng">
+	      </div>
+	    </div>
+	    <div class="form-group">
+	      <label class="control-label col-sm-2" for=math>Math:</label>
+	      <div class="col-sm-10">
+	        <input type="text" class="form-control" id="math" placeholder="Enter math" name="math">
+	      </div>
+	    </div>
+	    
+	    <div class="form-group">
+	      <label class="control-label col-sm-2" for="total">Total:</label>
+	      <div class="col-sm-10">          
+	        <input type="text" class="form-control" id="total" placeholder="Enter total" name="total">
+	      </div>
+	    </div>
+	    <div class="form-group">
+	      <label class="control-label col-sm-2" for="avg">Avg:</label>
+	      <div class="col-sm-10">          
+	        <input type="text" class="form-control" id="avg" placeholder="Enter avg" name="avg">
+	      </div>
+	    </div>
+	    
+	    
+	    <div class="form-group">        
+	      <div class="col-sm-offset-2 col-sm-10">
+	        <button type="submit" class="btn btn-default">Submit</button>
+	      </div>
+	    </div>
+	  </form>
+	</div>
+
+	
+	
+		
+	
 </body>
 </html>
+
+
