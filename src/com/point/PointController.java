@@ -95,7 +95,7 @@ public class PointController extends HttpServlet {
 				String msg = "점수 수정 실패";
 				if(res>0) {
 					msg="점수 수정 완료";
-					request.setAttribute("path", "./pointSelect?num=${dto.num}");
+					request.setAttribute("path", "./pointSelect?num="+pointDTO.getNum());
 					
 				} else {
 					request.setAttribute("path", "./pointList");
@@ -103,7 +103,7 @@ public class PointController extends HttpServlet {
 				
 				request.setAttribute("result", msg);
 				
-				path = "../WEB-INF/views/point/pointList.jsp";
+				path = "../WEB-INF/views/common/result.jsp";
 				
 			} else {
 				//로딩 시 바로 나오는 화면
