@@ -22,3 +22,5 @@
 - /point/pointMod		/	pointMod.jsp		/	GET
 - /point/pointMod		/						/	POST
 - /point/pointDel		/						/	GET
+
+# 추가1
