@@ -25,7 +25,16 @@ public class PointService {
 
 	//4. Insert
 	public int pointAdd(PointDTO pointDTO) throws Exception{
+		pointDTO.setTotal(pointDTO.getEng()+pointDTO.getKor()+pointDTO.getMath());
+		pointDTO.setAvg(pointDTO.getTotal()/3.0);
 		return pointDAO.pointAdd(pointDTO);
+	}
+	
+	//5. Update
+	public int pointMod(PointDTO pointDTO) throws Exception{
+		pointDTO.setTotal(pointDTO.getEng()+pointDTO.getKor()+pointDTO.getMath());
+		pointDTO.setAvg(pointDTO.getTotal()/3.0);
+		return pointDAO.pointMod(pointDTO);
 	}
 	
 }

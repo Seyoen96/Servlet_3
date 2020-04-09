@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import com.util.DBConnect;
 
+import oracle.jdbc.proxy.annotation.Pre;
+
 public class PointDAO {
 	//DAO (Data Access Object)
 	
@@ -99,6 +101,36 @@ public class PointDAO {
 	
 	
 	//4. Update
+	public int pointMod(PointDTO pointDTO) throws Exception{
+		Connection con = DBConnect.getConnect();
+		String sql = "UPDATE POINT SET NAME=?, KOR=?, ENG=?, MATH=?, TOTAL=?, AVG=?  WHERE NUM=?";
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		st.setString(1, pointDTO.getName());
+		st.setInt(2, pointDTO.getKor());
+		st.setInt(3, pointDTO.getEng());
+		st.setInt(4, pointDTO.getMath());
+		st.setInt(5, pointDTO.getTotal());
+		st.setDouble(6, pointDTO.getAvg());
+
+		st.setInt(7, pointDTO.getNum());
+		
+		
+		int res = st.executeUpdate();
+		if(res>0) {
+			System.out.println("update 성공");
+		} else {
+			System.out.println("update 실패");
+		}
+		
+		st.close();
+		con.close();
+		
+		return res;
+	}
+	
+	
+	
 	//5. Delete
 	public int pointDel(int num) throws Exception{
 		Connection con = DBConnect.getConnect();

@@ -72,6 +72,7 @@
 			</table>
 			
 			<a href="./pointDel?num=${dto.num}" class="btn btn-success" role="button">Delete</a>
+			<a href="./pointMod?num=${dto.num}" class="btn btn-danger">Update</a>
 		</div>
 	
 	</div>
