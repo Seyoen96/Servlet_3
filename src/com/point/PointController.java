@@ -63,9 +63,17 @@ public class PointController extends HttpServlet {
 				pointDTO.setEng(Integer.parseInt(request.getParameter("eng")));
 				pointDTO.setMath(Integer.parseInt(request.getParameter("math")));
 				
-				pointService.pointAdd(pointDTO);
-				check = false;
-				path = "../point/pointList";
+				int res = pointService.pointAdd(pointDTO);
+				String msg = "점수 등록 실패";
+				
+				if(res>0) {
+					msg="점수 등록 완료";
+				}
+				request.setAttribute("result", msg);
+				request.setAttribute("path", "./pointList");
+				
+				path = "../WEB-INF/views/common/result.jsp";
+				
 				
 			} else {
 				path = "../WEB-INF/views/point/pointAdd.jsp";
@@ -82,10 +90,20 @@ public class PointController extends HttpServlet {
 				pointDTO.setKor(Integer.parseInt(request.getParameter("kor")));
 				pointDTO.setEng(Integer.parseInt(request.getParameter("eng")));
 				pointDTO.setMath(Integer.parseInt(request.getParameter("math")));
-				pointService.pointMod(pointDTO);
+				int res = pointService.pointMod(pointDTO);
 				
-				check=false;
-				path = "../point/pointList";
+				String msg = "점수 수정 실패";
+				if(res>0) {
+					msg="점수 수정 완료";
+					request.setAttribute("path", "./pointSelect?num=${dto.num}");
+					
+				} else {
+					request.setAttribute("path", "./pointList");
+				}
+				
+				request.setAttribute("result", msg);
+				
+				path = "../WEB-INF/views/point/pointList.jsp";
 				
 			} else {
 				//로딩 시 바로 나오는 화면
