@@ -24,3 +24,4 @@
 - /point/pointDel		/						/	GET
 
 # 추가1
+# 추가2
