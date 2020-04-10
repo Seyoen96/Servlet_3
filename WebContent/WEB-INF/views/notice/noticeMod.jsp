@@ -13,17 +13,19 @@
 
 <div class="container">
   
-  <form action="../notice/noticeMod" method="POST">
+  <form class="form-horizontal" action="../notice/noticeMod" method="POST">
+  <div class="row">
     <div class="form-group">
       <label for="sub">제목:</label>
-      <input type="text" class="form-control" id="sub" value="${noDto.sub}">
+      <input type="text" class="form-control"  name="sub" value="${noDto.sub}">
     </div>
     
 	<div class="form-group">
 	  <label for="contents">내용:</label>
-	  <textarea class="form-control" rows="5" id="comment">${noDto.contents}</textarea>
+	  <textarea class="form-control" rows="5" name="contents">${noDto.contents}</textarea>
 	</div>    
-
+	
+	<input type="hidden" name="no" value="${noDto.no}">
 
 
 	<div class="form-group">        
@@ -31,10 +33,10 @@
 	        <button type="submit" class="btn btn-default" id="btnCheck">Confirm</button>
 	        <!-- <input type="submit" class="btn btn-default">Submit2 -->
 	      </div>
-	  </div>
+	 </div>
 
 	
-
+	</div>
   </form>
 </div>
 

@@ -13,6 +13,7 @@
 	<c:import url="../template/header.jsp"></c:import>
 	
 	<div class="container">
+	
 	  <h1>Point Modify Form</h1>
 	  <form class="form-horizontal" action="../point/pointMod" method="POST">
 	  

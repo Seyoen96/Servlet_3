@@ -10,9 +10,9 @@
 </head>
 
 <body>
-	<c:import url="./template/header.jsp"></c:import>
+<c:import url="./template/header.jsp"></c:import>
 
-	<h1>Add Member Branch</h1>
+	<h1>Add Notice Branch</h1>
 	
 	
 </body>

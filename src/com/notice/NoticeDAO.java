@@ -60,15 +60,13 @@ public class NoticeDAO {
 	//3. Notice Update
 	public int noticeMod(NoticeDTO noticeDTO) throws Exception {
 		Connection con = DBConnect.getConnect();
-		String sql = "UPDATE NOTICE SET SUB=?, CONTENTS=?, NODATE=SYSDATE"
-				+ "WHERE NO=?";
+		String sql = "UPDATE NOTICE SET SUB=?, CONTENTS=?, NODATE=SYSDATE WHERE NO=?";
 		PreparedStatement st = con.prepareStatement(sql);
-		
 		st.setString(1, noticeDTO.getSub());
 		st.setString(2, noticeDTO.getContents());
 		st.setInt(3, noticeDTO.getNo());
+
 		int res = st.executeUpdate();
-		
 		if(res>0) {
 			System.out.println("글 수정 완료");
 		} else {
@@ -79,6 +77,45 @@ public class NoticeDAO {
 		con.close();
 		return res;
 	}
+	
+	//4. Notice Delete
+	public int noticeDelete(int no) throws Exception{
+		Connection con = DBConnect.getConnect();
+		String sql="DELETE NOTICE WHERE NO = ?";
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		st.setInt(1, no);
+		int res = st.executeUpdate();
+		if(res>0) {
+			System.out.println("delete 완료");
+		} else {
+			System.out.println("delete fail");
+		}
+		
+		st.close();
+		con.close();
+		return res;
+	}
+	
+	
+	//5. Notice Add
+	public int noticeAdd(NoticeDTO noticeDTO) throws Exception {
+		Connection con = DBConnect.getConnect();
+		String sql = "INSERT INTO NOTICE VALUES (SEQ_NOTICE_NO.NEXTVAL,"
+				+ "?,?,SYSDATE)";
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		st.setString(1, noticeDTO.getSub());
+		st.setString(2, noticeDTO.getContents());
+		int res = st.executeUpdate();
+		
+		st.close();
+		con.close();
+		return res;
+	}
+	
+	
+	
 	
 
 }

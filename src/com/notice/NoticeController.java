@@ -56,19 +56,24 @@ public class NoticeController extends HttpServlet {
 		
 			path="../WEB-INF/views/notice/noticeSelect.jsp";
 		
+			
 		// 글 수정 페이지
 		} else if (command.equals("/noticeMod")) {
-			if(method.equals("POST")) {
-				NoticeDTO noticeDTO = new NoticeDTO();
-				
+			System.out.println(method);
+			if(method.equals("POST")) {			
+				NoticeDTO noticeDTO = new NoticeDTO();			
 				noticeDTO.setNo(Integer.parseInt(request.getParameter("no")));	
 				noticeDTO.setSub(request.getParameter("sub"));
-				noticeDTO.setContents(request.getParameter("contents"));
+				noticeDTO.setContents(request.getParameter("contents"));	
 				
-				noticeService.noticeMod(noticeDTO);
-				
-				check=false;
-				path = "./noticeSelect";
+				int res = noticeService.noticeMod(noticeDTO);				
+				if(res>0) {
+					System.out.println("mod success");
+				} else {
+					System.out.println("mod fail");
+				}	
+				check = false;
+				path = "../notice/noticeList";
 			} else {
 				int no = Integer.parseInt(request.getParameter("no"));
 				NoticeDTO noticeDTO = noticeService.noticeSelect(no);
@@ -77,13 +82,29 @@ public class NoticeController extends HttpServlet {
 				path="../WEB-INF/views/notice/noticeMod.jsp";
 			}
 			
-		// 새 글 쓰기
-		} else if(command.equals("/noticeAdd")) {
-			
 		
 		// 글 삭제 페이지	
 		} else if(command.equals("/noticeDelete")) {
+			int no = Integer.parseInt(request.getParameter("no"));
+			noticeService.noticeDelete(no);
 			
+			check = false;
+			path = "../";
+			
+			
+		// 새 글 쓰기
+		} else if(command.equals("/noticeAdd")) {
+			if(method.equals("POST")) {
+				NoticeDTO noticeDTO = new NoticeDTO();
+				noticeDTO.setSub(request.getParameter("sub"));
+				noticeDTO.setContents(request.getParameter("contents"));
+				noticeService.noticeAdd(noticeDTO);
+				
+				check = false;
+				path="./noticeList";
+			} else {
+				path = "../WEB-INF/views/notice/noticeAdd.jsp";
+			}
 			
 		} else {
 			System.out.println("etc.");

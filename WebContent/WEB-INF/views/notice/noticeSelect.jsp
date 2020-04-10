@@ -25,7 +25,7 @@
 	</div>    
 
 	<a href="./noticeMod?no=${noDto.no}" class="btn btn-success">Update</a>
-	<a href="./noticeDelete?no${noDto.no}" class="btn btn-danger" role="button">Delete</a>
+	<a href="./noticeDelete?no=${noDto.no}" class="btn btn-danger" role="button">Delete</a>
 
   </form>
 </div>

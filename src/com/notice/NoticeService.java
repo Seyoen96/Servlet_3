@@ -24,5 +24,14 @@ public class NoticeService {
 		return noticeDAO.noticeMod(noticeDTO);
 	}
 	
+	// Delete
+	public int noticeDelete(int no) throws Exception {
+		return noticeDAO.noticeDelete(no);
+	}
+	
+	// Add
+	public int noticeAdd(NoticeDTO noticeDTO) throws Exception{
+		return noticeDAO.noticeAdd(noticeDTO);
+	}
 
 }
