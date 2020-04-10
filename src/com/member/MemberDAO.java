@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 
 import com.util.DBConnect;
 
+
 public class MemberDAO {
 	
 	//1. insert
@@ -33,7 +34,7 @@ public class MemberDAO {
 		return res;
 	}
 	
-	//2. login (db에서 조회)
+	//2. login (DB에서 조회)
 	public MemberDTO memberLogin(MemberDTO memberDTO) throws Exception {
 		Connection con = DBConnect.getConnect();
 		String sql = "SELECT * FROM MEMBER WHERE ID=? AND PWD=?";
@@ -59,6 +60,57 @@ public class MemberDAO {
 		
 		return memberDTO;
 	}
+	
+	
+	//3. delete
+	public int memberDelete(MemberDTO memberDTO) throws Exception {
+		
+		Connection con = DBConnect.getConnect();
+		String sql = "DELETE MEMBER WHERE ID =?";
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setString(1, memberDTO.getId());
+	
+		int res = st.executeUpdate();
+		if(res>0) {
+			System.out.println("member delete success");			
+		} else {
+			System.out.println("member delete fail");
+		}
+		
+		st.close();
+		con.close();
+		return res;
+	}
+	
+	
+	//4. update
+	public int memberUpdate(MemberDTO memberDTO) throws Exception {
+		Connection con = DBConnect.getConnect();
+		String sql = "UPDATE MEMBER SET NAME=?, "
+				+ "EMAIL=?, PHONE=?, AGE=? WHERE ID=?";
+		PreparedStatement st = con.prepareStatement(sql);
+
+		st.setString(5, memberDTO.getId());
+		st.setString(1, memberDTO.getName());
+		st.setString(2, memberDTO.getEmail());
+		st.setString(3, memberDTO.getPhone());
+		st.setInt(4, memberDTO.getAge());
+		
+		int res = st.executeUpdate();
+		System.out.println(res);
+		System.out.println("2");
+		if(res>0) {
+			System.out.println("update 성공");
+		} else {
+			System.out.println("update 실패");
+		}
+		
+		st.close();
+		con.close();
+		return res;
+	}
+	
+
 	
 	
 }

@@ -39,6 +39,8 @@ public class MemberController extends HttpServlet {
 		String path="";
 		
 		try {
+		//로그인 후 계속 유지되는 정보 		-> session 
+		//한번 받고 사라져도 되는 정보 이용 		-> request	
 			
 		//1. member Join
 		if(command.equals("/memberJoin")) {
@@ -79,18 +81,15 @@ public class MemberController extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("member", memberDTO);
 					check = false;
-					path = "../";
-					
+					path = "../";					
 				} else {
 					//로그인 실패 시 로그인 form으로
 					request.setAttribute("result", "로그인 실패");
 					request.setAttribute("path", "./memberLogin");
 					path = "../WEB-INF/views/common/result.jsp";
-				}
-	
+				}	
 			}else {
-				path = "../WEB-INF/views/member/memberLogin.jsp";
-				
+				path = "../WEB-INF/views/member/memberLogin.jsp";			
 			}
 			
 			
@@ -104,25 +103,53 @@ public class MemberController extends HttpServlet {
 		}
 		
 		//4. MyPage
-		else if (command.equals("/memberPage")) {
-			MemberDTO memberDTO = new MemberDTO();
-			
-			HttpSession session = request.getSession();
-			memberDTO.setId(session.getAttribute("id"));
-			
-			memberService.memberLogin(memberDTO);
+		else if (command.equals("/memberPage")) {	
 			
 			path="../WEB-INF/views/member/memberPage.jsp";
+		
 			
+		//5. member update	
 		} else if(command.equals("/memberUpdate")) {
-			System.out.println("update");
+			if(method.equals("POST")) {
+				HttpSession session = request.getSession();
+				
+				MemberDTO memberDTO = new MemberDTO();
+				memberDTO.setId(request.getParameter("id"));
+				memberDTO.setPwd(request.getParameter("pwd"));
+				memberDTO.setName(request.getParameter("name"));
+				memberDTO.setEmail(request.getParameter("email"));
+				memberDTO.setPhone(request.getParameter("phone"));
+				memberDTO.setAge(Integer.parseInt(request.getParameter("age")));
+				
+				int res = memberService.memberUpdate(memberDTO);
 			
+				if(res>0) {
+					//session에 수정된 데이터 다시 set
+					session.setAttribute("member", memberDTO);
+				}
+				
+				check = false;
+				path="./memberPage";
+				
+			} else {
+				path="../WEB-INF/views/member/memberUpdate.jsp";				
+			}
+		
+			
+		//6. member delete	
 		} else if(command.equals("/memberDelete")) {
-			System.out.println("delete");
+			HttpSession session = request.getSession();
+			
+			MemberDTO memberDTO = new MemberDTO();			
+			memberDTO=(MemberDTO)session.getAttribute("member");	
+			
+			memberService.memberDelete(memberDTO);
+			session.invalidate();
+			check=false;
+			path="../";	
 			
 		} else {
 			System.out.println("etc.");
-			
 		}
 		
 		

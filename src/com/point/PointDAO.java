@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import com.util.DBConnect;
 
-import oracle.jdbc.proxy.annotation.Pre;
 
 public class PointDAO {
 	//DAO (Data Access Object)
