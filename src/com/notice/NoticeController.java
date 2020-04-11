@@ -9,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.member.MemberDTO;
 
 /**
  * Servlet implementation class NoticeController
@@ -42,24 +45,52 @@ public class NoticeController extends HttpServlet {
 		try {
 
 		// 글 목록 페이지
-		if(command.equals("/noticeList")) {			
-			ArrayList<NoticeDTO> ar = noticeService.noticeList();
-			request.setAttribute("noticeList", ar);
+		if(command.equals("/noticeList")) {	
+			String id = request.getParameter("id");
+			String type = "";
+			
+			if(!id.isEmpty()) {
+				type = "hidden";	
+				
+				ArrayList<NoticeDTO> ar = noticeService.noticeList();
+				request.setAttribute("noticeList", ar);
+				path = "../WEB-INF/views/notice/noticeList.jsp";
+				
+				if(id.equals("admin")) {
+					//admin 로그인
+					type = "button";
+				}
+				request.setAttribute("type", type);
 
-			path = "../WEB-INF/views/notice/noticeList.jsp";
+			} else {
+				//로그아웃 상태
+				request.setAttribute("result", "권한이 없습니다");
+				request.setAttribute("path", "../");
+				path = "../WEB-INF/views/common/result.jsp";
+			}
+
 
 		// 상세 페이지
 		} else if (command.equals("/noticeSelect")) {
 			int no = Integer.parseInt(request.getParameter("no"));
+			String id = request.getParameter("id");
+			String type = "hidden";
+			
 			NoticeDTO noticeDTO = noticeService.noticeSelect(no);
 			request.setAttribute("noDto", noticeDTO);
-		
+			
+			// admin일 때
+			if(id.equals("admin")) {
+				type="button";
+			}			
+			request.setAttribute("type", type);
+			
 			path="../WEB-INF/views/notice/noticeSelect.jsp";
 		
 			
 		// 글 수정 페이지
 		} else if (command.equals("/noticeMod")) {
-			System.out.println(method);
+			
 			if(method.equals("POST")) {			
 				NoticeDTO noticeDTO = new NoticeDTO();			
 				noticeDTO.setNo(Integer.parseInt(request.getParameter("no")));	
@@ -67,13 +98,9 @@ public class NoticeController extends HttpServlet {
 				noticeDTO.setContents(request.getParameter("contents"));	
 				
 				int res = noticeService.noticeMod(noticeDTO);				
-				if(res>0) {
-					System.out.println("mod success");
-				} else {
-					System.out.println("mod fail");
-				}	
+					
 				check = false;
-				path = "../notice/noticeList";
+				path = "../notice/noticeList?id=admin";
 			} else {
 				int no = Integer.parseInt(request.getParameter("no"));
 				NoticeDTO noticeDTO = noticeService.noticeSelect(no);
@@ -101,7 +128,7 @@ public class NoticeController extends HttpServlet {
 				noticeService.noticeAdd(noticeDTO);
 				
 				check = false;
-				path="./noticeList";
+				path="../";
 			} else {
 				path = "../WEB-INF/views/notice/noticeAdd.jsp";
 			}
@@ -109,6 +136,7 @@ public class NoticeController extends HttpServlet {
 		} else {
 			System.out.println("etc.");
 		}
+		
 		
 		//redirect or forward
 		if(check) {

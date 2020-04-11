@@ -11,6 +11,7 @@
 <body>
 <c:import url="../template/header.jsp"></c:import>
 
+	
 	<div class="container">
 		<div class="row">
 		<h1>Notice List</h1>
@@ -27,7 +28,7 @@
 			<c:forEach items="${noticeList}" var="noDto">
 				<tr>
 					<td>${noDto.no}</td>
-					<td colspan="2"><a href="./noticeSelect?no=${noDto.no}">${noDto.sub}</a></td>
+					<td colspan="2"><a href="./noticeSelect?no=${noDto.no}&id=${member.id}">${noDto.sub}</a></td>
 					<td>관리자</td>
 					<td>${noDto.nodate}</td>
 				</tr>
@@ -36,14 +37,19 @@
 			
 			</table>
 			
-			<a href="./noticeAdd" class="btn btn-primary">Add Content</a>
-			
+			<input id="addbtn" class="btn btn-primary" value="Add Content" onclick="location.href='./noticeAdd'">
+			<!--  <a href="./noticeAdd" class="btn btn-primary" >Add Content</a>-->
 			
 		</div>
 	
 	</div>
 
-
+	
+	
+	<script type="text/javascript">
+		$("#addbtn").prop("type","${type}");
+	
+	</script>
 
 </body>
 </html>

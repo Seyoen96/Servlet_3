@@ -11,6 +11,8 @@
 <body>
 <c:import url="../template/header.jsp"></c:import>
 
+
+
 <div class="container">
   
   <form action="../notice/noticeAdd" method="POST">

@@ -13,7 +13,7 @@ public class NoticeDAO {
 	public ArrayList<NoticeDTO> noticeList() throws Exception {		
 		Connection con = DBConnect.getConnect();
 		ArrayList<NoticeDTO> ar = new ArrayList<NoticeDTO>();
-		String sql="SELECT * FROM NOTICE";
+		String sql="SELECT * FROM NOTICE ORDER BY NO DESC";
 		
 		PreparedStatement st = con.prepareStatement(sql);
 		ResultSet rs = st.executeQuery();
@@ -38,7 +38,6 @@ public class NoticeDAO {
 		String sql = "SELECT * FROM NOTICE WHERE NO=?";
 		PreparedStatement st = con.prepareStatement(sql);
 		st.setInt(1, no);
-		System.out.println(no);
 		
 		ResultSet rs = st.executeQuery();
 		
@@ -60,18 +59,13 @@ public class NoticeDAO {
 	//3. Notice Update
 	public int noticeMod(NoticeDTO noticeDTO) throws Exception {
 		Connection con = DBConnect.getConnect();
-		String sql = "UPDATE NOTICE SET SUB=?, CONTENTS=?, NODATE=SYSDATE WHERE NO=?";
+		String sql = "UPDATE NOTICE SET SUB=?, CONTENTS=? WHERE NO=?";
 		PreparedStatement st = con.prepareStatement(sql);
 		st.setString(1, noticeDTO.getSub());
 		st.setString(2, noticeDTO.getContents());
 		st.setInt(3, noticeDTO.getNo());
 
 		int res = st.executeUpdate();
-		if(res>0) {
-			System.out.println("글 수정 완료");
-		} else {
-			System.out.println("글 수정 실패");
-		}
 		
 		st.close();
 		con.close();
@@ -86,11 +80,6 @@ public class NoticeDAO {
 		
 		st.setInt(1, no);
 		int res = st.executeUpdate();
-		if(res>0) {
-			System.out.println("delete 완료");
-		} else {
-			System.out.println("delete fail");
-		}
 		
 		st.close();
 		con.close();

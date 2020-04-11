@@ -24,11 +24,18 @@
 	  <textarea class="form-control" rows="5" id="comment" disabled="disabled">${noDto.contents}</textarea>
 	</div>    
 
-	<a href="./noticeMod?no=${noDto.no}" class="btn btn-success">Update</a>
-	<a href="./noticeDelete?no=${noDto.no}" class="btn btn-danger" role="button">Delete</a>
+	 <!-- <input type="submit" class="btn btn-default">Submit2 -->
+	<input class="btn btn-success btnHid" value="Update" onclick="location.href='./noticeMod?no=${noDto.no}'">
+	<input class="btn btn-danger btnHid" value="Delete" onclick="location.href='./noticeDelete?no=${noDto.no}'">
 
   </form>
 </div>
+
+	<script type="text/javascript">
+		$(".btnHid").prop("type","${type}")
+	
+	
+	</script>
 
 
 </body>

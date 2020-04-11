@@ -105,6 +105,7 @@ public class MemberController extends HttpServlet {
 		//4. MyPage
 		else if (command.equals("/memberPage")) {	
 			
+			
 			path="../WEB-INF/views/member/memberPage.jsp";
 		
 			
